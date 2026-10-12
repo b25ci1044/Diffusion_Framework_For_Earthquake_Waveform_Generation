@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mamba_ssm import Mamba
 from Diffusion_Framework_For_Earthquake_Waveform_Generation.model import DiffusionModelConfig, HybridMambaDiffusionModel
+from test import testing_model
 from scheduler import DDPMScheduler
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
