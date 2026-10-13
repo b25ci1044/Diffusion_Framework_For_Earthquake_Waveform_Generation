@@ -193,3 +193,26 @@ class HybridUMambaDiffusion(nn.Module):
 
         # Prediction
         return self.out_conv(F.silu(self.out_norm(h)))
+
+
+
+
+model = HybridUMambaDiffusion(DiffusionModelConfig(DiffusionModelConfig())).to(device)
+
+batch_size = 4
+sequence_length = 256 # Can be any length, but typically powers of 2 (128, 256, 512)
+
+# x: The noisy input sequence. Shape: (Batch, Channels, Sequence_Length)
+dummy_x = torch.randn(batch_size, DiffusionModelConfig().in_channels, sequence_length).to(device)
+
+# time: The diffusion timesteps. Shape: (Batch,)
+# Usually random integers between 0 and your max diffusion steps (e.g., 1000)
+dummy_time = torch.randint(0, 1000, (batch_size,)).to(device)
+
+# cond: The conditioning metadata. Shape: (Batch, Cond_Dim)
+dummy_cond = torch.randn(batch_size, DiffusionModelConfig().cond_dim).to(device)
+
+# 4. Forward pass
+output = model(dummy_x, dummy_time, dummy_cond)
+
+
